@@ -1,5 +1,6 @@
 
-times = pd.date_range(start='2020-01-01', end='2020-08-01', tz='utc', freq='min')
+# TODO: generar data en business hours
+times = pd.date_range(start='2020-01-01', end='2020-08-01', tz='utc', freq='min') 
 times = times.astype(int) // 10**9
 
 values = np.random.choice([-1,0,1],times.shape[0], p=[0.45,0.1,0.45])
