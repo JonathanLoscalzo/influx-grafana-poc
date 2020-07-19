@@ -7,10 +7,36 @@ docker-compose -f "docker-compose.yml" up -d --build
 docker exec -it influx-grafana-poc_influxdb_1 bas
 
 # import fake data
-influx -import -path=Personas_data.txt -precision=s -database=Personas
+influx -import -path=data/Personas_data.txt -precision=s -database=biblioteca_database
+```
+
+If you generate new data, you must prepend to Personas_data.txt:
+```
+# DDL
+
+CREATE DATABASE biblioteca_database
+
+# DML
+
+# CONTEXT-DATABASE: biblioteca_database
+
+```
+
+You should see this message: 
+```bash
+2020/07/19 22:00:39 Processed 100000 lines.  Time elapsed: 568.695459ms.  Points per second (PPS): 175841
+2020/07/19 22:00:40 Processed 200000 lines.  Time elapsed: 1.0388489s.  Points per second (PPS): 192520
+2020/07/19 22:00:40 Processed 300000 lines.  Time elapsed: 1.626172345s.  Points per second (PPS): 184482
+2020/07/19 22:00:40 Processed 1 commands
+2020/07/19 22:00:40 Processed 306721 inserts
+2020/07/19 22:00:40 Failed 0 inserts
+
 ```
 
 ### Resources
+
+https://docs.influxdata.com/influxdb/v1.8/query_language/sample-data/
+
 https://grafana.com/docs/grafana/latest/features/datasources/influxdb/
 
 https://grafana.com/docs/grafana/latest/variables/templates-and-variables/
