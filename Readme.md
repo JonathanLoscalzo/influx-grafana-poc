@@ -34,6 +34,7 @@ You should see this message:
 ```
 
 ### Resources
+https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#timeseries-offset-aliases
 
 https://docs.influxdata.com/influxdb/v1.8/query_language/sample-data/
 
