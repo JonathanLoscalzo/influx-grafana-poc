@@ -41,3 +41,5 @@ https://docs.influxdata.com/influxdb/v1.8/query_language/sample-data/
 https://grafana.com/docs/grafana/latest/features/datasources/influxdb/
 
 https://grafana.com/docs/grafana/latest/variables/templates-and-variables/
+
+https://csetutorials.com/influxdb-tutorial.html
