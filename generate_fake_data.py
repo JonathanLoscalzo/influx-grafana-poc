@@ -7,12 +7,18 @@ times = pd.bdate_range(start='2020-01-01', end='2020-08-01', tz='utc', freq='min
 times = times.astype(int) // 10**9
 
 values = np.random.choice([-1,0,1],times.shape[0], p=[0.45,0.1,0.45])
-
+def definir_accion(d):
+    if d==1:
+        return 'entrar'
+    elif d==-1:
+        return 'salir'
+    else: 
+        return '\'\''
 df = pd.DataFrame({"value":values, "timestamp":times})
 df["Measure"] = "Personas"
 df['device'] = 'd1'
 df['sensor'] = 'reflectivo'
-df['accion'] = 'entrar'
+df['accion'] = df.value.apply(definir_accion)
 
 format_to="{}, device={}, sensor={}, accion={} value={}, {}"
 
