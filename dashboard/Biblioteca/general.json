@@ -142,10 +142,6 @@
                   "value"
                 ],
                 "type": "field"
-              },
-              {
-                "params": [],
-                "type": "sum"
               }
             ]
           ],
@@ -155,6 +151,16 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "Permanencia Actual",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "sum"
+            ]
+          }
+        }
+      ],
       "type": "gauge"
     },
     {
@@ -291,7 +297,7 @@
     {
       "cacheTimeout": null,
       "datasource": "InfluxDB",
-      "description": "Gente actualmente adentro",
+      "description": "Flujo de personas",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -313,10 +319,6 @@
                 "value": null
               },
               {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 350
-              },
-              {
                 "color": "#d44a3a"
               }
             ]
@@ -326,8 +328,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
-        "w": 3,
+        "h": 6,
+        "w": 6,
         "x": 16,
         "y": 1
       },
@@ -342,7 +344,7 @@
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "sum"
           ],
           "fields": "",
           "values": false
@@ -380,83 +382,14 @@
               "value": "entrar"
             }
           ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Ingresos",
-      "type": "stat"
-    },
-    {
-      "cacheTimeout": null,
-      "datasource": "InfluxDB",
-      "description": "Cuanta gente salió",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [
-            {
-              "id": 0,
-              "op": "=",
-              "text": "N/A",
-              "type": 1,
-              "value": "null"
-            }
-          ],
-          "nullValueMode": "connected",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "#299c46",
-                "value": null
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 350
-              },
-              {
-                "color": "#d44a3a"
-              }
-            ]
-          },
-          "unit": "none"
         },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 19,
-        "y": 1
-      },
-      "id": 18,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "value"
-      },
-      "pluginVersion": "7.1.0",
-      "targets": [
         {
           "alias": "Egresos",
           "groupBy": [],
           "measurement": "Personas",
           "orderByTime": "ASC",
           "policy": "default",
-          "refId": "A",
+          "refId": "B",
           "resultFormat": "time_series",
           "select": [
             [
@@ -483,7 +416,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Egresos",
+      "title": "Flujo de personas",
       "type": "stat"
     },
     {
@@ -1464,5 +1397,5 @@
   "timezone": "",
   "title": "Biblioteca Diario",
   "uid": "ODPG_aHGk",
-  "version": 43
+  "version": 45
 }
