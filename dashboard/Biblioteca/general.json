@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 4,
   "links": [],
   "panels": [
     {
@@ -420,62 +420,58 @@
       "type": "stat"
     },
     {
-      "aliasColors": {},
-      "bars": true,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "InfluxDB",
+      "datasource": "InfluxDB-Test",
       "description": "Cuanta gente se encuentra en la biblioteca",
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "links": []
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 1,
       "gridPos": {
         "h": 9,
-        "w": 10,
+        "w": 12,
         "x": 0,
         "y": 7
       },
-      "hiddenSeries": false,
       "hideTimeOverride": false,
-      "id": 19,
+      "id": 23,
       "interval": "",
-      "legend": {
-        "alignAsTable": false,
-        "avg": false,
-        "current": false,
-        "hideEmpty": false,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": false,
-        "total": false,
-        "values": false
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true
       },
-      "lines": false,
-      "linewidth": 2,
-      "nullPointMode": "null",
-      "percentage": false,
       "pluginVersion": "7.1.0",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
       "targets": [
         {
-          "alias": "Flujo personas",
+          "alias": "$tag_dia",
           "groupBy": [
             {
               "params": [
-                "30m"
+                "$__interval"
               ],
               "type": "time"
             },
@@ -486,12 +482,11 @@
               "type": "fill"
             }
           ],
-          "measurement": "Personas",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT sum(\"value\") FROM \"Personas\" WHERE $timeFilter GROUP BY time(30m) fill(null)",
-          "rawQuery": false,
-          "refId": "C",
+          "query": "SELECT mean(\"value\") from (SELECT sum(\"value\") as value from Personas group by time(1h), \"dia\" ) group by \"dia\"",
+          "rawQuery": true,
+          "refId": "A",
           "resultFormat": "time_series",
           "select": [
             [
@@ -503,99 +498,17 @@
               },
               {
                 "params": [],
-                "type": "sum"
+                "type": "mean"
               }
             ]
           ],
           "tags": []
-        },
-        {
-          "alias": "Egresos",
-          "groupBy": [
-            {
-              "params": [
-                "10m"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": true,
-          "measurement": "Personas",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"value\") FROM \"measurement\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": false,
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "count"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "accion",
-              "operator": "=",
-              "value": "salir"
-            }
-          ]
         }
       ],
-      "thresholds": [],
       "timeFrom": "1h",
-      "timeRegions": [],
       "timeShift": null,
-      "title": "Flujo de Personas",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "title": "Permanencia x dia",
+      "type": "bargauge"
     },
     {
       "aliasColors": {},
@@ -615,8 +528,8 @@
       "fillGradient": 1,
       "gridPos": {
         "h": 9,
-        "w": 12,
-        "x": 10,
+        "w": 10,
+        "x": 12,
         "y": 7
       },
       "hiddenSeries": false,
@@ -790,6 +703,184 @@
     },
     {
       "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "InfluxDB",
+      "description": "Cuanta gente se encuentra en la biblioteca",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 11,
+        "x": 0,
+        "y": 16
+      },
+      "hiddenSeries": false,
+      "hideTimeOverride": false,
+      "id": 19,
+      "interval": "",
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "hideEmpty": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": false,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.0",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "Flujo personas",
+          "groupBy": [
+            {
+              "params": [
+                "30m"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "Personas",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"value\") FROM \"Personas\" WHERE $timeFilter GROUP BY time(30m) fill(null)",
+          "rawQuery": false,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "Egresos",
+          "groupBy": [
+            {
+              "params": [
+                "10m"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "measurement": "Personas",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"value\") FROM \"measurement\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": false,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "accion",
+              "operator": "=",
+              "value": "salir"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": "1h",
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Flujo de Personas",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
@@ -805,9 +896,9 @@
       "fill": 1,
       "fillGradient": 1,
       "gridPos": {
-        "h": 10,
-        "w": 22,
-        "x": 0,
+        "h": 9,
+        "w": 11,
+        "x": 11,
         "y": 16
       },
       "hiddenSeries": false,
@@ -974,7 +1065,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 25
       },
       "id": 12,
       "panels": [],
@@ -1017,7 +1108,7 @@
         "h": 7,
         "w": 6,
         "x": 0,
-        "y": 27
+        "y": 26
       },
       "id": 16,
       "options": {
@@ -1099,7 +1190,7 @@
         "h": 7,
         "w": 15,
         "x": 6,
-        "y": 27
+        "y": 26
       },
       "hiddenSeries": false,
       "id": 21,
@@ -1248,7 +1339,7 @@
         "h": 9,
         "w": 21,
         "x": 0,
-        "y": 34
+        "y": 33
       },
       "hiddenSeries": false,
       "id": 10,
@@ -1377,8 +1468,8 @@
     "list": []
   },
   "time": {
-    "from": "2020-04-09T03:00:00.000Z",
-    "to": "2020-04-10T02:59:59.000Z"
+    "from": "1970-01-01T00:00:00.000Z",
+    "to": "1970-01-01T00:00:00.000Z"
   },
   "timepicker": {
     "hidden": false,
@@ -1396,6 +1487,6 @@
   },
   "timezone": "",
   "title": "Biblioteca Diario",
-  "uid": "ODPG_aHGk",
-  "version": 45
+  "uid": "ODPG_aHGk2",
+  "version": 4
 }
