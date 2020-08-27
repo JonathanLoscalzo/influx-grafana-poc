@@ -43,3 +43,25 @@ https://grafana.com/docs/grafana/latest/features/datasources/influxdb/
 https://grafana.com/docs/grafana/latest/variables/templates-and-variables/
 
 https://csetutorials.com/influxdb-tutorial.html
+
+
+### Queries Remotas
+
+Crear base de datos
+```
+curl -i -XPOST '<url>/query' -u '<user>:<password>' \
+ 'q=CREATE DATABASE "BibliotecaTest"'
+```
+
+Subir desde un archivo
+```
+curl -i -XPOST '<url>/write?db=BibliotecaTest&precision=s' -u '<user>:<password>' \
+ --data-raw @Personas_data.txt
+```
+
+Ejecutar Query
+```
+curl -i -XPOST '<url>/query?pretty=true' -u '<user>:<password>' \
+--data-urlencode "db=BibliotecaTest" \
+--data-urlencode "q=SELECT * FROM PERSONAS LIMIT 10"
+```
