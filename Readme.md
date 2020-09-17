@@ -1,3 +1,4 @@
+# People Flow: Fake Data generation
 
 ```
 # create ecosystem
@@ -49,19 +50,38 @@ https://csetutorials.com/influxdb-tutorial.html
 
 Crear base de datos
 ```
-curl -i -XPOST '<url>/query' -u '<user>:<password>' \
- 'q=CREATE DATABASE "BibliotecaTest"'
+curl -i -XPOST '<url>/query' \
+-u '<user>:<password>' \
+'q=CREATE DATABASE "BibliotecaTest"'
+```
+
+Drop a measure
+```
+curl -i -XPOST '<url>/query' 
+-u '<user>:<password>' \
+--data-urlencode "db=BibliotecaTest" \
+--data-urlencode 'q=DROP MEASUREMENT "Personas"'
+```
+
+Show measurements
+```
+curl -i -XPOST '<url>/query' 
+-u '<user>:<password>' \
+--data-urlencode "db=BibliotecaTest" \
+--data-urlencode 'q=SHOW MEASUREMENTS '
 ```
 
 Subir desde un archivo
 ```
-curl -i -XPOST '<url>/write?db=BibliotecaTest&precision=s' -u '<user>:<password>' \
- --data-raw @Personas_data.txt
+curl -i -XPOST '<url>/write?db=BibliotecaTest&precision=s' \
+-u '<user>:<password>' \
+--data-binary @Personas_data.txt
 ```
 
 Ejecutar Query
 ```
-curl -i -XPOST '<url>/query?pretty=true' -u '<user>:<password>' \
+curl -i -XPOST '<url>/query?pretty=true' \
+-u '<user>:<password>' \
 --data-urlencode "db=BibliotecaTest" \
---data-urlencode "q=SELECT * FROM PERSONAS LIMIT 10"
+--data-urlencode "q=SELECT * FROM Personas LIMIT 10"
 ```
