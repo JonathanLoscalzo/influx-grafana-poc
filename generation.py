@@ -55,10 +55,16 @@ def generate_fake_day(people_number=10):
         new_value = random.choice([-1, 1])
         if new_value == 1:
             ya_entraron += 1
+        
         result[i] = new_value
 
+    # el valor es coherente, salieron todos los que entraron
     assert np.sum(result) == 0
+    
+    # el primero entra
     assert result[0] == 1
+
+    # el último sale
     assert result[(2 * people_number) - 1] == -1
-    # print(result)
+
     return result
